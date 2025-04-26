@@ -7,5 +7,5 @@ CANDIDATES = ["Trump", "Biden", "Kamala", "Obama", "Bush"]
 DIFFICULTY = 4
 
 ACKS = 0.66
-BLOCKCHAIN_FILE = "blockchain.json"
-NODES_FILE = "nodes.json"
+BLOCKCHAIN_FILE = "../data/blockchain.json"
+NODES_FILE = "../data/nodes.json"
