@@ -6,6 +6,7 @@ from api import register_routes
 import config
 
 app = Flask(__name__)
+
 nodes = load_nodes_from_file()
 chain = load_chain_from_file()
 blockchain = Blockchain(nodes, chain)
