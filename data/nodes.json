@@ -1,1 +1,44 @@
-[]
+[
+    {
+        "id": "04fbb2c571e30dc7244a55a9c400af8ad16bdd9c3ae1d6473dd774efc87e31de0d63f9f6bea4b07e854d5b81fbde552734f1cd5c5ff00af300f0cfa672a5f79aef",
+        "ip": "127.0.0.4",
+        "port": 5002,
+        "voted": true,
+        "voted_at": 1745791837.4174976
+    },
+    {
+        "id": "047a13c728c5733c84e22b1488b76ec7f74305d5758d7829bf449e51e1bdb8b78bf88587d2c5005cbadfc13161610b15292d7220306a12aec27e330b88f5cf8ab9",
+        "ip": "127.0.0.3",
+        "port": 5001,
+        "voted": true,
+        "voted_at": 1745791794.9397936
+    },
+    {
+        "id": "04a1612f9c70120d03aba073dde891c34cc57ebb368cf54097d663515b15b89a59400c0b77bc67c4c2acb091980b4d1ebd0c6f78d88b7c8b761d69dd609bc011f0",
+        "ip": "127.0.0.5",
+        "port": 5003,
+        "voted": true,
+        "voted_at": 1745792265.796129
+    },
+    {
+        "id": null,
+        "ip": "127.0.1.1",
+        "port": 5004,
+        "voted": false,
+        "voted_at": null
+    },
+    {
+        "id": "04e9c8bb846064089ba6ea416b6edae59c1cc81001d08222890b6265e7c262aafbc602763daede3821c045a951bccfecf373acf064f6a7be76f3160a0003617344",
+        "ip": "127.0.0.7",
+        "port": 5005,
+        "voted": true,
+        "voted_at": 1745791524.9220064
+    },
+    {
+        "id": "04c2dcb776f70508c2754c1cf5979d6af69e4a574590581eba56252756dcd756979fc68f1ff3c0b8daba28e1929baf6ddda338e78c88c9e462353af8d43f33e7f9",
+        "ip": "127.0.0.6",
+        "port": 5004,
+        "voted": true,
+        "voted_at": 1745791495.5576568
+    }
+]

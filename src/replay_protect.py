@@ -4,9 +4,9 @@ from functools import wraps
 from flask import request, jsonify
 
 WINDOW=60
-seen_nounces = {}
+seen_nonces = {}
 
-def cleanup_nounces():
+def cleanup_nonces():
     now = time.time()
     for n, exp in list(seen_nonces.items()):
         if exp < now:

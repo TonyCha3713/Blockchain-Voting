@@ -2,7 +2,6 @@ from flask import request, jsonify, Response
 import time, requests, json
 from blockchain import save_nodes_to_file, save_chain_to_file, verify_vote_signature 
 import config
-from replay_protect import replay_protect
 
 
 def broadcast_post(path, payload, blockchain, ip, port):
@@ -142,7 +141,6 @@ def register_routes(app, blockchain):
         return jsonify({'my_vote': None}), 200
 
     @app.route('/mine', methods=['POST'])
-    @replay_protect
     def mine():
         block = blockchain.mine_block()
         if not block:
