@@ -46,3 +46,34 @@ It leverages ECDSA public/private key cryptography for vote signing, a two-phase
 ### #5 Configuration
 + Centralized tunable parameters: candidate list, mining difficulty, P2P multicast group/port, consensus quorum fraction, and file paths for persistent state.
 + Enables rapid customization for different election scenarios, network topologies, and performance requirements without touching core logic.
+
+## Usage with CLI
+All commands are wrapped in cli.py. If your server runs on a different host/port, use --server `<URL>`.
+### 1. Generate key pair 
+```
+python3 cli.py genkey
+```
+This creates:
++ `private_key.pem` (encrypted with an optinal passphrase) in the data folder
++ `public_key.pem` (used as your voter ID) in the data folder
+### 2. Register your node
+```
+python3 cli.py register --ip <YOUR_IP> --port <PORT>
+```
+Calls `POST /register_node` to broadcast your public key and address.
+### 3. Cast your vote
+```
+python3 cli.py vote --candidate <CANDIDATE>
+```
+Signs and submits your vote via `POST /vote`.
+### 4. Mine pending votes
+```
+python3 cli.py mine
+```
+Invokes `POST /mine`, performing PoW, prepare/commit consensus, and commits on success
+### 5. Check your vote & results
+```
+python3 cli.py myvote
+curl http://<YOUR_IP>:<PORT>/chain
+curl http://<YOUR_IP>:<PORT>/results
+```
