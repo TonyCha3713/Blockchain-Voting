@@ -9,3 +9,6 @@ DIFFICULTY = 4
 ACKS = 0.66
 BLOCKCHAIN_FILE = "../data/blockchain.json"
 NODES_FILE = "../data/nodes.json"
+
+PRIVATE_KEY = "../data/private-key.pem"
+PUBLIC_KEY = "../data/public-key.pem"

@@ -3,6 +3,7 @@ import argparse
 import json
 import getpass
 import requests
+import config
 from cryptography.hazmat.primitives.asymmetric import ec
 from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.hazmat.primitives.serialization import BestAvailableEncryption
@@ -28,22 +29,22 @@ def cmd_genkey(args):
         format=serialization.PrivateFormat.PKCS8,
         encryption_algorithm=enc_algo
     )
-    with open(args.private_key, 'wb') as f:
+    with open(config.PRIVATE_KEY, 'wb') as f:
         f.write(priv_bytes)
 
     pub_pem = public_key.public_bytes(
         encoding=serialization.Encoding.PEM,
         format=serialization.PublicFormat.SubjectPublicKeyInfo
     )
-    with open(args.public_key_file, 'wb') as f:
+    with open(config.PUBLIC_KEY, 'wb') as f:
         f.write(pub_pem)
 
-    print(f"Private key written to {args.private_key}")
-    print(f"Public key written to {args.public_key_file}")
+    print(f"Private key written to {config.PRIVATE_KEY}")
+    print(f"Public key written to {config.PUBLIC_KEY}")
 
 # Register existing public key and IP with network
 def cmd_register(args):
-    with open(args.public_key_file, 'rb') as f:
+    with open(config.PUBLIC_KEY, 'rb') as f:
         pub_pem = f.read()
     public_key = serialization.load_pem_public_key(pub_pem, backend=default_backend())
     pub_hex = public_key.public_bytes(
@@ -62,14 +63,14 @@ def cmd_register(args):
 def cmd_vote(args):
     passphrase = args.passphrase or getpass.getpass('Enter passphrase: ')
     # Load and decrypt private key
-    with open(args.private_key, 'rb') as f:
+    with open(config.PRIVATE_KEY, 'rb') as f:
         private_key = serialization.load_pem_private_key(
             f.read(),
             password=passphrase.encode() if passphrase else None,
             backend=default_backend()
         )
     # Derive public key hex from public key file
-    with open(args.public_key_file, 'rb') as f:
+    with open(config.PUBLIC_KEY, 'rb') as f:
         pub_pem = f.read()
     public_key = serialization.load_pem_public_key(pub_pem, backend=default_backend())
     pub_hex = public_key.public_bytes(
@@ -98,7 +99,7 @@ def cmd_mine(args):
     pretty_print(resp)
 
 def cmd_myvote(args):
-    with open(args.public_key_file, 'rb') as f:
+    with open(config.PUBLIC_KEY, 'rb') as f:
         pub_pem = f.read()
     public_key = serialization.load_pem_public_key(pub_pem, backend=default_backend())
     pub_hex = public_key.public_bytes(
@@ -118,19 +119,14 @@ def main():
     sub = parser.add_subparsers(dest='command', required=True)
 
     g = sub.add_parser('genkey', help='Generate keypair')
-    g.add_argument('--private-key', default='private_key.pem')
-    g.add_argument('--public-key-file', default='public_key.pem')
     g.set_defaults(func=cmd_genkey)
 
     r = sub.add_parser('register', help='Register public key and IP')
-    r.add_argument('--public-key-file', default='public_key.pem')
     r.add_argument('--ip', required=True, help='Your IP address')
     r.add_argument('--port', required=True, help='Your port')
     r.set_defaults(func=cmd_register)
 
     v = sub.add_parser('vote', help='Cast vote using key files')
-    v.add_argument('--private-key', default='private_key.pem')
-    v.add_argument('--public-key-file', default='public_key.pem')
     v.add_argument('--candidate', required=True)
     v.set_defaults(func=cmd_vote)
 
@@ -138,7 +134,6 @@ def main():
     m.set_defaults(func=cmd_mine)
 
     n = sub.add_parser('myvote', help='Display my vote')
-    n.add_argument('--public-key-file', default='public_key.pem')
     n.set_defaults(func=cmd_myvote)
 
     args = parser.parse_args()
