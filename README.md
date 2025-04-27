@@ -3,6 +3,9 @@ A peer-to-peer, Proof‑of‑Work voting system built in Python, designed to tur
 
 It leverages ECDSA public/private key cryptography for vote signing, a two-phase prepare/commit consensus over a configurable-difficulty PoW chain, and UDP multicast for dynamic peer discovery—all exposed through a clean Flask REST API and an easy-to-use CLI.
 
+## Blockchain Voting Demo using 6 nodes
+https://github.com/user-attachments/assets/adc68fd5-8e6c-4020-8cf1-68662f521c20
+
 ## Key Features
 + Secure Voting: Each vote is signed client-side with ECDSA keys and protected against replay attacks using nonces and timestamps.
 + Proof‑of‑Work & Consensus: Configurable mining difficulty with a majority‑quorum (≥50%) two‑phase prepare/commit protocol and automatic rollback on failure.
@@ -19,8 +22,7 @@ It leverages ECDSA public/private key cryptography for vote signing, a two-phase
 ├── api.py             Flask endpoints
 ├── cli.py             Command-line interface wrapping REST API calls into user-friendly commands
 ├── config.py          Centralized constants for easy customization
-├── p2p.py             UDP multicast-based peer discovery
-├── replay_potect.py   Proect from replay attacks when mining   
+├── p2p.py             UDP multicast-based peer discovery   
 ```
 ## Implementation Breakdown
 ### #1 Peer Discovery
@@ -77,3 +79,5 @@ python3 cli.py myvote
 curl http://<YOUR_IP>:<PORT>/chain
 curl http://<YOUR_IP>:<PORT>/results
 ```
+
+
